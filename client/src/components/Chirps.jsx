@@ -1,37 +1,37 @@
 import React, { Fragment } from 'react';
+import Chirp from './Chirp';
 
 
+const Chirps = (props) => {
+    
 
-const Chirp = (props) => {
+    let items =[];
 
-    let chirp = props.chirp;
-    let timeStyle = {
-        position: "relative",
-        bottom: "1em"
-    }
+   ( (chirps = props.chirps) => {
+        for (let index in chirps) {
+            console.log(index);
+            if(index !== "nextid" ){
+                let chirp =JSON.parse(JSON.stringify(chirps[index]));
+                chirp.time=new Date(chirp.time);
+                console.log(chirp.time)
+                items.push(<Chirp chirp={chirp} key={chirp.time} />);
+                
+            }
+           
+        };
+    })();
+
     return (
+
         <Fragment>
-            <div className="d-inline-flex flex-row flex-nowrap">
-                <li className="list-group-item flex-grow-1">
-
-                    <small className="d-block" style={timeStyle}>
-                        {chirp.user} on {chirp.time.toLocaleString()}
-                    </small>
-                    <span className="ml-5">{chirp.content}</span>
-
-
-                </li>
-                <div className="  list-group-item d-flex align-items-center">
-                    <button type="button" className="close deleteChirp " aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-
-            </div>
+            <ul className="list-group list-group-flush d-flex flex-column-reverse">
+                {items}
+            </ul>
 
         </Fragment>
+
     );
-
-
-
 }
 
-export default Chirp;
+
+export default Chirps;
