@@ -1,12 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import ChirpCard from './ChirpCard';
 import Header from './Header';
+import { Link } from 'react-router-dom';
+
 
 class Chirp extends Component {
     constructor(props) {
         super(props);
         this.state = {
             chirp:{
+                index:"",
                 time:"",
                 user:"",
                 content:""
@@ -20,6 +23,7 @@ class Chirp extends Component {
             let results = await fetch(url);
             let data = await results.json();
             data.time=new Date(await data.time);
+            data.index=this.props.match.params.id;
             this.setState({
                 chirp: data
 
@@ -29,9 +33,12 @@ class Chirp extends Component {
         }
     }
 
+    
+
+
     render() {
         let chirp =this.state.chirp;
-        console.log(chirp);
+        let path =path = `/chirps/${chirp.index}/edit`;
         return (
             <Fragment>
                 <Header />
@@ -39,7 +46,7 @@ class Chirp extends Component {
 
                     <div className="card-header d-flex justify-content-between">
                         <span> You can edit chirp or delete it.</span>
-                        <button type="button" className=" btn btn-primary" aria-label="Edit">Edit</button>
+                       <Link className="btn btn-outline-primary" to={path} key={path}>Edit </ Link> 
                     </div>
                     <ChirpCard chirp={chirp} isFeed={false} key={chirp.time} />
                 </div>
