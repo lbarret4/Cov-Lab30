@@ -65,9 +65,10 @@ class ChirpEdit extends Component {
             (async (chirp) => {
                 try {
                     let results = await fetch(url,options);
-                    this.setState({
-                        redirect:true
-                    })
+                    // this.setState({
+                    //     redirect:true
+                    // })
+                    this.props.history.replace('/')
                     
 
                 } catch (error) {
@@ -86,14 +87,15 @@ class ChirpEdit extends Component {
 
     handlesClose(e){
         e.preventDefault();
-        this.setState({
-            redirect:true
-        })
+        // this.setState({
+        //     redirect:true
+        // })
+        this.props.history.goBack();
     }
 
 
     render() {
-        let redirect = <Redirect to='/'/>;
+        // let redirect = <Redirect to='/'/>;
         let chirp = this.state.chirp;
         return (
             <Fragment>
