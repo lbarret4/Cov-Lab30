@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Chirp from './Chirp';
+import ChirpCard from './ChirpCard';
 
 
 const Chirps = (props) => {
@@ -9,12 +9,11 @@ const Chirps = (props) => {
 
    ( (chirps = props.chirps) => {
         for (let index in chirps) {
-            console.log(index);
             if(index !== "nextid" ){
                 let chirp =JSON.parse(JSON.stringify(chirps[index]));
                 chirp.time=new Date(chirp.time);
-                console.log(chirp.time)
-                items.push(<Chirp chirp={chirp} key={chirp.time} />);
+                chirp.index = index;
+                items.push(<ChirpCard chirp={chirp} isFeed={true} key={chirp.time} />);
                 
             }
            
