@@ -93,7 +93,7 @@ class ChirpsFeed extends Component {
                     </div>
                     <form>
                         <div className="input-group">
-                            <textarea className="form-control" required onChange={this.handlesNewChirp} value={this.state.chirpContent} />
+                            <textarea className="form-control" onChange={this.handlesNewChirp} value={this.state.chirpContent} />
                             <div className="input-group-append">
                                 <button type="button" className=" btn btn-primary" onClick={this.handlesPost} >Post</button>
                             </div>
