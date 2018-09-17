@@ -8,7 +8,7 @@ router.get('/:id?', (req,res) => {
     if(id === "nextid" ){
         res.json(cs.GetChirps().nextid);
     }else if(id){
-        res.json(cs.GetChirps(id))
+        res.json(cs.GetChirp(id))
     }
     else{
         res.send(cs.GetChirps());
@@ -16,9 +16,8 @@ router.get('/:id?', (req,res) => {
 });
 
 router.post('/',(req,res) => {
-    let previousId= cs.GetChirps().nextid
     cs.CreateChirp(req.body);
-    res.json(previousId);
+    res.json(cs.GetChirps());
    
 
 });
