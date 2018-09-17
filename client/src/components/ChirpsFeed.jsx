@@ -23,7 +23,7 @@ class ChirpsFeed extends Component {
         try {
             let results = await fetch(url);
             let chirps = await results.json();
-            console.log(chirps);
+         
             this.setState({
                 chirpList: chirps
 
@@ -37,6 +37,7 @@ class ChirpsFeed extends Component {
 
 
     handlesNewChirp(e) {
+        console.log("change in text");
         this.setState({
             chirpContent: e.target.value
 
@@ -46,23 +47,39 @@ class ChirpsFeed extends Component {
 
     handlesPost(e) {
         e.preventDefault();
+        console.log(`we are going to fetch\n ${this.state.chirpContent.length}`);
         if (this.state.chirpContent.length > 0) {
-            let oddList = this.state.chirpList;
-            oddList.unshift(
-                {
-                    time: new Date(Date.now()),
-                    user: this.state.chirpUser,
-                    content: this.state.chirpContent
+            let url = `http://localhost:3000/api/chirps`;
+            let chirp = {};
+            chirp.time = new Date(Date.now());
+            chirp.user = this.state.chirpUser;
+            chirp.content = this.state.chirpContent;
+            let options = {
+                method: 'POST',
+                body: JSON.stringify(chirp),
+                headers: {
+                    'Content-Type':'application/json'
+                },
+            };
+            (async (chirp) => {
+                try {
+                    let results = await fetch(url,options);
+                    results = await results.json();
+                    console.log("we are trying to fetch");
+                    this.setState({
+                        chirpList: await results,
+                        chirpContent: ""
+                    });
+
+                } catch (error) {
+                    console.log(error);
                 }
-            );
-            this.setState({
-                chirpList: oddList,
-                chirpContent: ""
-            })
+            })();
+
 
 
         } else {
-            return alert("\t\t\tEmpty Chirp:\n\nAdd a message before posting Chirps!")
+            return alert("\t\t\tEmpty Chirp:\n\nAdd a message before posting Chirps!");
         }
 
     }
@@ -77,7 +94,7 @@ class ChirpsFeed extends Component {
                     <div className="card-header">
                         To get started, type a message and post a chirp.
                     </div>
-                    <form className="" action="" method="POST">
+                    <form>
                         <div className="input-group">
                             <textarea className="form-control" required onChange={this.handlesNewChirp} value={this.state.chirpContent} />
                             <div className="input-group-append">
