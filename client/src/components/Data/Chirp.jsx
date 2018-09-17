@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import ChirpCard from './ChirpCard';
-import Header from './Header';
-import { Link,Redirect } from 'react-router-dom';
+import { ChirpCard } from '../View';
+import Header from '../Header';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class Chirp extends Component {
@@ -14,7 +14,7 @@ class Chirp extends Component {
                 user: "",
                 content: ""
             },
-            redirect:false
+            redirect: false
         }
         this.handlesDelete = this.handlesDelete.bind(this);
     }
@@ -39,7 +39,7 @@ class Chirp extends Component {
         e.preventDefault();
         let url = `http://localhost:3000/api/chirps/${this.state.chirp.index}`;
         let options = {
-            method: 'DELETE',           
+            method: 'DELETE',
         };
         (async (chirp) => {
             try {
@@ -60,14 +60,14 @@ class Chirp extends Component {
     render() {
         let chirp = this.state.chirp;
         let path = path = `/chirps/${chirp.index}/edit`;
-        let redirect = <Redirect to='/'/>;
+        let redirect = <Redirect to='/' />;
         return (
             <Fragment>
-                {this.state.redirect ? redirect: <Header /> }
-                <div className="card mt-5" style={{ maxWidth: " 90vw" }} >
+                {this.state.redirect ? redirect : <Header />}
+                <div className="card mt-2" style={{ maxWidth: " 90vw" }} >
 
                     <div className="card-header d-flex justify-content-between">
-                        <span> You can edit chirp or delete it.</span>
+                        <span> You can edit a chirp or click the X to delete it.</span>
                         <Link className="btn btn-outline-primary" to={path} key={path}>Edit </ Link>
                     </div>
                     <ChirpCard chirp={chirp} isFeed={false} onClick={this.handlesDelete} key={chirp.time} />

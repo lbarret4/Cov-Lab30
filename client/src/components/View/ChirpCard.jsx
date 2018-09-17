@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Chirp = (props) => {
+const ChirpCard = (props) => {
 
     let chirp = props.chirp;
     let timeStyle = {
@@ -29,7 +29,7 @@ const Chirp = (props) => {
                     <small className="text-muted " style={timeStyle}>
                         {chirp.user} on {chirp.time.toLocaleString()}
                     </small>
-                    
+
                     {props.isFeed ? props.isFeed : closeBtn}
                 </div>
 
@@ -52,4 +52,4 @@ const Chirp = (props) => {
 
 }
 
-export default Chirp;
+export default ChirpCard;

@@ -1,31 +1,31 @@
 import React, { Component, Fragment } from 'react';
-import Header from './Header';
-import {Redirect} from 'react-router-dom';
+import Header from '../Header';
+// import { Redirect } from 'react-router-dom';
 
 class ChirpEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chirp:{
-                index:"",
-                time:"",
-                user:"",
-                content:""
+            chirp: {
+                index: "",
+                time: "",
+                user: "",
+                content: ""
             },
-            redirect:false
+            redirect: false
         }
-        this.handlesEditChirp =this.handlesEditChirp.bind(this);
+        this.handlesEditChirp = this.handlesEditChirp.bind(this);
         this.handlesSave = this.handlesSave.bind(this);
         this.handlesClose = this.handlesClose.bind(this)
     }
     async componentDidMount() {
-        let id =this.props.match.params.id;
+        let id = this.props.match.params.id;
         let url = `http://localhost:3000/api/chirps/${id}`;
         try {
             let results = await fetch(url);
             let data = await results.json();
-            data.time=new Date(await data.time);
-            data.index= id;
+            data.time = new Date(await data.time);
+            data.index = id;
             this.setState({
                 chirp: data
 
@@ -37,17 +37,17 @@ class ChirpEdit extends Component {
 
     handlesEditChirp(e) {
         let newChirp = this.state.chirp;
-        newChirp.content= e.target.value;
+        newChirp.content = e.target.value;
         this.setState({
-            chirp:newChirp
-            
-                
+            chirp: newChirp
+
+
 
         });
 
     }
 
-    handlesSave(e){        
+    handlesSave(e) {
         e.preventDefault();
         if (this.state.chirp.content.length > 0) {
             let url = `http://localhost:3000/api/chirps/${this.state.chirp.index}`;
@@ -59,17 +59,17 @@ class ChirpEdit extends Component {
                 method: 'PUT',
                 body: JSON.stringify(chirp),
                 headers: {
-                    'Content-Type':'application/json'
+                    'Content-Type': 'application/json'
                 },
             };
             (async (chirp) => {
                 try {
-                    let results = await fetch(url,options);
+                    let results = await fetch(url, options);
                     // this.setState({
                     //     redirect:true
                     // })
                     this.props.history.replace('/')
-                    
+
 
                 } catch (error) {
                     console.log(error);
@@ -85,7 +85,7 @@ class ChirpEdit extends Component {
 
     }
 
-    handlesClose(e){
+    handlesClose(e) {
         e.preventDefault();
         // this.setState({
         //     redirect:true
@@ -99,8 +99,8 @@ class ChirpEdit extends Component {
         let chirp = this.state.chirp;
         return (
             <Fragment>
-                {this.state.redirect ? redirect: <Header /> }
-                
+                {this.state.redirect ? redirect : <Header withoutButton={true} />}
+
                 <div className='model-open'>
                     <div className="modal" role="dialog" aria-labelledby="chirpsModalLabel" style={{ display: 'block' }}>
                         <div className="modal-dialog modal-dialog-centered" role="document">

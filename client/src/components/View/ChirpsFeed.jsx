@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import Chirps from './Chirps';
-import Header from './Header';
+import { Chirps } from '../Data';
+import Header from '../Header';
 
 
 
@@ -23,7 +23,7 @@ class ChirpsFeed extends Component {
         try {
             let results = await fetch(url);
             let chirps = await results.json();
-         
+
             this.setState({
                 chirpList: chirps
 
@@ -56,12 +56,12 @@ class ChirpsFeed extends Component {
                 method: 'POST',
                 body: JSON.stringify(chirp),
                 headers: {
-                    'Content-Type':'application/json'
+                    'Content-Type': 'application/json'
                 },
             };
             (async (chirp) => {
                 try {
-                    let results = await fetch(url,options);
+                    let results = await fetch(url, options);
                     results = await results.json();
                     this.setState({
                         chirpList: await results,
@@ -86,7 +86,7 @@ class ChirpsFeed extends Component {
         return (
             <Fragment>
                 <Header />
-                <div className="card mt-5" style={{ maxWidth: " 90vw" }} >
+                <div className="card mt-2" style={{ maxWidth: " 90vw" }} >
 
                     <div className="card-header">
                         To get started, type a message and post a chirp.

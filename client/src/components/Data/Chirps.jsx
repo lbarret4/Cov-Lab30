@@ -1,22 +1,22 @@
 import React, { Fragment } from 'react';
-import ChirpCard from './ChirpCard';
+import { ChirpCard } from '../View';
 
 
 const Chirps = (props) => {
-    
 
-    let items =[];
 
-   ( (chirps = props.chirps) => {
+    let items = [];
+
+    ((chirps = props.chirps) => {
         for (let index in chirps) {
-            if(index !== "nextid" ){
-                let chirp =JSON.parse(JSON.stringify(chirps[index]));
-                chirp.time=new Date(chirp.time);
+            if (index !== "nextid") {
+                let chirp = JSON.parse(JSON.stringify(chirps[index]));
+                chirp.time = new Date(chirp.time);
                 chirp.index = index;
                 items.push(<ChirpCard chirp={chirp} isFeed={true} key={chirp.time} />);
-                
+
             }
-           
+
         };
     })();
 
