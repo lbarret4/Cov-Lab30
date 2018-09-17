@@ -1,7 +1,8 @@
 import React from 'react';
-import ChirpsFeed from './ChirpsFeed';
+import Home from './ChirpsFeed';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Header from './Header';
+import Chirp from './Chirp';
 
 const Navigation = () => {
 
@@ -9,9 +10,13 @@ const Navigation = () => {
   return (
     <Router>
       <div className="container">
-      
-        <Header />
-        <ChirpsFeed />
+        <Switch>
+            <Route exact path = "/" component={Home} />
+             {/* <Route exact path = "/chirps/id/edit" component ={}/> */}
+            <Route path = "/chirps/:id" component ={Chirp}/> 
+            
+        </Switch>
+
       </div>
 
     </Router>
