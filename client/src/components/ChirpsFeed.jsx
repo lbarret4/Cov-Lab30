@@ -37,7 +37,6 @@ class ChirpsFeed extends Component {
 
 
     handlesNewChirp(e) {
-        console.log("change in text");
         this.setState({
             chirpContent: e.target.value
 
@@ -47,7 +46,6 @@ class ChirpsFeed extends Component {
 
     handlesPost(e) {
         e.preventDefault();
-        console.log(`we are going to fetch\n ${this.state.chirpContent.length}`);
         if (this.state.chirpContent.length > 0) {
             let url = `http://localhost:3000/api/chirps`;
             let chirp = {};
@@ -65,7 +63,6 @@ class ChirpsFeed extends Component {
                 try {
                     let results = await fetch(url,options);
                     results = await results.json();
-                    console.log("we are trying to fetch");
                     this.setState({
                         chirpList: await results,
                         chirpContent: ""
