@@ -1,8 +1,25 @@
-const fs = require('fs');
-let chirps = { nextid: 0 };
+import fs from 'fs';
+let chirps = {
+    "0": {
+        time: new Date(2018, 7, 27, 7, 0),
+        user: "Taomgirl",
+        content: "I woke up really early this morning"
+    },
+    "1": {
+        time: new Date(2018, 7, 28, 7, 11),
+        user: "Divi",
+        content: "Somewhere over the rainbow"
+    },
+    "2": {
+        time: new Date(2018, 7, 29, 23, 0),
+        user: "Bobby Z",
+        content: "Who ate my cheese?"
+    },
+    nextid: 3
+};
 
-if(fs.existsSync('chirps.json')) {
-    chirps = JSON.parse(fs.readFileSync('chirps.json'));
+if (fs.existsSync('server/chirps.json')) {
+    chirps = JSON.parse(fs.readFileSync('server/chirps.json'));
 }
 
 let getChirps = () => {
@@ -29,13 +46,15 @@ let deleteChirp = id => {
 }
 
 let writeChirps = () => {
-    fs.writeFileSync('chirps.json', JSON.stringify(chirps,null,2));
+    fs.writeFileSync('server/chirps.json', JSON.stringify(chirps, null, 2));
 };
 
-module.exports = {
+let  chirpStore = {
     CreateChirp: createChirp,
     DeleteChirp: deleteChirp,
     GetChirps: getChirps,
     GetChirp: getChirp,
     UpdateChirp: updateChirp
-}
+};
+
+export default chirpStore;
