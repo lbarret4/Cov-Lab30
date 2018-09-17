@@ -1,23 +1,23 @@
 import {Router} from 'express';
-import chirpsStore from '../chirpstore';
+import cs from '../chirpstore';
 
 let router = Router();
 
 router.get('/:id?', (req,res) => {
     let id = req.params.id;
     if(id === "nextid" ){
-        res.json(chirpsStore.GetChirps().nextid);
+        res.json(cs.GetChirps().nextid);
     }else if(id){
-        res.json(chirpsStore.GetChirps(id))
+        res.json(cs.GetChirps(id))
     }
     else{
-        res.send(chirpsStore.GetChirps());
+        res.send(cs.GetChirps());
     }
 });
 
 router.post('/',(req,res) => {
-    let previousId= chirpsStore.GetChirps().nextid
-    chirpsStore.CreateChirp(req.body);
+    let previousId= cs.GetChirps().nextid
+    cs.CreateChirp(req.body);
     res.json(previousId);
    
 
@@ -25,13 +25,13 @@ router.post('/',(req,res) => {
 
 router.put('/:id',(req,res) => {
     let id = req.params.id;
-    chirpsStore.UpdateChirp(id,req.body);
+    cs.UpdateChirp(id,req.body);
     res.sendStatus(200);
 });
 
 router.delete('/:id',(req,res) => {
     let id = req.params.id;
-    chirpsStore.DeleteChirp(id);
+    cs.DeleteChirp(id);
     res.sendStatus(200);
 });
 
